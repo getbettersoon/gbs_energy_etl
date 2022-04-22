@@ -1,6 +1,6 @@
 import psycopg2
-from sql_queries import drop_table_queries, create_table_queries
-from settings import config
+from gbs_energy_etl.sql_queries import drop_table_queries, create_table_queries
+from gbs_energy_etl.settings import config
 
 
 def drop_tables(conn, cur):

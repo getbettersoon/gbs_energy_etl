@@ -1,4 +1,4 @@
-from settings import config
+from gbs_energy_etl.settings import config
 
 
 ROLE_ARN = config.get('IAM_ROLE', 'ROLE_ARN')
