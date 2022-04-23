@@ -16,7 +16,7 @@ class TestTemperature(unittest.TestCase):
         """
 
         # define variables for testing
-        countries = "('Poland', 'Canada', 'Chad', 'Japan')"
+        countries = ('Poland', 'Canada', 'Chad', 'Japan')
         year = 2013
 
         # run query against source dataset

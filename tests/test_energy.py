@@ -15,17 +15,17 @@ class TestEnergy(unittest.TestCase):
         """
 
         # define variables for testing
-        countries = "('Poland', 'Germany', 'Spain')"
+        countries = ('Poland', 'Germany', 'Spain')
         year = 1989
         emission_metric = 'coal_production'
 
         # query staging
-        cur.execute("""
+        cur.execute(f"""
             SELECT year, country, energy_amount
             FROM staging_energy
-            WHERE energy_metric = 'coal_production'
-            AND year = 1989
-            AND country IN ('Poland', 'Germany', 'Spain')
+            WHERE energy_metric = '{emission_metric}'
+            AND year = {year}
+            AND country IN {countries}
             ORDER BY country
         """)
 

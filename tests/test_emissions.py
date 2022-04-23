@@ -13,11 +13,12 @@ class TestEmissions(unittest.TestCase):
         """
          - compare emission values between staging and fact table
         """
-        # define variables for testing
-        countries = "('Poland', 'Germany')"
-        year = 1989
-        gas = "CO2"
         
+        # define variables for testing
+        countries = ('Poland', 'Germany')
+        year = 1989
+        gas = 'CO2'
+
         # query staging
         cur.execute(f"""
         SELECT year, co.name, gas, emission_amount
@@ -39,7 +40,7 @@ class TestEmissions(unittest.TestCase):
         # to respective column name in fact table
         map_gas = {'CO2': 'co2_emissions', 'N2O': 'n2o_emissions',
                    'CH4': 'ch4_emisssions'}
-        
+
         # query fact
         cur.execute(f"""SELECT da.year, co.name, f.{map_gas[gas]}
             FROM fact f

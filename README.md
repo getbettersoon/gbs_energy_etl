@@ -8,7 +8,7 @@ This pipeline takes three datasets from my bucket in Amazon S3:</br>
 
 - greenhouse gas emissions</br>
 
-and transforms them into dimensional model in Amazon Redshift.</br>
+and transforms them into dimensional model in Amazon Redshift.</br></br>
 
 ## About source datasets
 
@@ -49,9 +49,9 @@ by year, by country. Data covers time range from 1900 to 2021.</br></br>
 
 ### Set up environment
 
-- You will need a Redshift cluster. Next add cluster/AWS details to aws_template.cfg. Do not change the order of fields.</br>
+- You will need a Redshift cluster. Next use config template `gbs_energy_etl/aws_template.cfg` to add your cluster/AWS details. Do not change the order of fields.</br>
 
-- Add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.</br></br>
+- Either add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.</br></br>
 
 ### Run the script
 
