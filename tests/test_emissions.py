@@ -13,7 +13,7 @@ class TestEmissions(unittest.TestCase):
         """
          - compare emission values between staging and fact table
         """
-        
+
         # define variables for testing
         countries = ('Poland', 'Germany')
         year = 1989

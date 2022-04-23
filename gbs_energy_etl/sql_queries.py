@@ -308,261 +308,378 @@ GROUP BY iso_code, year
 
   energy AS (
   SELECT iso_code, country, year, population, gdp,
-  SUM(CASE WHEN energy_metric='coal_production' THEN energy_amount END) AS coal_production,
-  SUM(CASE WHEN energy_metric='coal_prod_change_pct' THEN energy_amount END) AS coal_prod_change_pct,
-  SUM(CASE WHEN energy_metric='coal_prod_change_twh' THEN energy_amount END) AS coal_prod_change_twh,
-  SUM(CASE WHEN energy_metric='coal_prod_per_capita' THEN energy_amount END) AS coal_prod_per_capita,
-  SUM(CASE WHEN energy_metric='coal_consumption' THEN energy_amount END) AS coal_consumption,
-  SUM(CASE WHEN energy_metric='coal_cons_change_pct' THEN energy_amount END) AS coal_cons_change_pct,
-  SUM(CASE WHEN energy_metric='coal_cons_change_twh' THEN energy_amount END) AS coal_cons_change_twh,
-  SUM(CASE WHEN energy_metric='coal_cons_per_capita' THEN energy_amount END) AS coal_cons_per_capita,
-  SUM(CASE WHEN energy_metric='coal_electricity' THEN energy_amount END) AS coal_electricity,
-  SUM(CASE WHEN energy_metric='coal_elec_per_capita' THEN energy_amount END) AS coal_elec_per_capita,
-  SUM(CASE WHEN energy_metric='coal_share_elec' THEN energy_amount END) AS coal_share_elec,
-  SUM(CASE WHEN energy_metric='coal_share_energy' THEN energy_amount END) AS coal_share_energy,
-  SUM(CASE WHEN energy_metric='oil_production' THEN energy_amount END) AS oil_production,
-  SUM(CASE WHEN energy_metric='oil_prod_change_pct' THEN energy_amount END) AS oil_prod_change_pct,
-  SUM(CASE WHEN energy_metric='oil_prod_change_twh' THEN energy_amount END) AS oil_prod_change_twh,
-  SUM(CASE WHEN energy_metric='oil_prod_per_capita' THEN energy_amount END) AS oil_prod_per_capita,
-  SUM(CASE WHEN energy_metric='oil_consumption' THEN energy_amount END) AS oil_consumption,
-  SUM(CASE WHEN energy_metric='oil_cons_change_pct' THEN energy_amount END) AS oil_cons_change_pct,
-  SUM(CASE WHEN energy_metric='oil_cons_change_twh' THEN energy_amount END) AS oil_cons_change_twh,
-  SUM(CASE WHEN energy_metric='oil_electricity' THEN energy_amount END) AS oil_electricity,
-  SUM(CASE WHEN energy_metric='oil_elec_per_capita' THEN energy_amount END) AS oil_elec_per_capita,
-  SUM(CASE WHEN energy_metric='oil_energy_per_capita' THEN energy_amount END) AS oil_energy_per_capita,
-  SUM(CASE WHEN energy_metric='oil_share_elec' THEN energy_amount END) AS oil_share_elec,
-  SUM(CASE WHEN energy_metric='oil_share_energy' THEN energy_amount END) AS oil_share_energy,
-  SUM(CASE WHEN energy_metric='gas_production' THEN energy_amount END) AS gas_production,
-  SUM(CASE WHEN energy_metric='gas_prod_change_pct' THEN energy_amount END) AS gas_prod_change_pct,
-  SUM(CASE WHEN energy_metric='gas_prod_change_twh' THEN energy_amount END) AS gas_prod_change_twh,
-  SUM(CASE WHEN energy_metric='gas_prod_per_capita' THEN energy_amount END) AS gas_prod_per_capita,
-  SUM(CASE WHEN energy_metric='gas_consumption' THEN energy_amount END) AS gas_consumption,
-  SUM(CASE WHEN energy_metric='gas_cons_change_pct' THEN energy_amount END) AS gas_cons_change_pct,
-  SUM(CASE WHEN energy_metric='gas_cons_change_twh' THEN energy_amount END) AS gas_cons_change_twh,
-  SUM(CASE WHEN energy_metric='gas_electricity' THEN energy_amount END) AS gas_electricity,
-  SUM(CASE WHEN energy_metric='gas_elec_per_capita' THEN energy_amount END) AS gas_elec_per_capita,
-  SUM(CASE WHEN energy_metric='gas_energy_per_capita' THEN energy_amount END) AS gas_energy_per_capita,
-  SUM(CASE WHEN energy_metric='gas_share_elec' THEN energy_amount END) AS gas_share_elec,
-  SUM(CASE WHEN energy_metric='gas_share_energy' THEN energy_amount END) AS gas_share_energy,
-  SUM(CASE WHEN energy_metric='fossil_fuel_consumption' THEN energy_amount END) AS fossil_fuel_consumption,
-  SUM(CASE WHEN energy_metric='fossil_cons_change_pct' THEN energy_amount END) AS fossil_cons_change_pct,
-  SUM(CASE WHEN energy_metric='fossil_cons_change_twh' THEN energy_amount END) AS fossil_cons_change_twh,
-  SUM(CASE WHEN energy_metric='fossil_cons_per_capita' THEN energy_amount END) AS fossil_cons_per_capita,
-  SUM(CASE WHEN energy_metric='fossil_electricity' THEN energy_amount END) AS fossil_electricity,
-  SUM(CASE WHEN energy_metric='fossil_energy_per_capita' THEN energy_amount END) AS fossil_energy_per_capita,
-  SUM(CASE WHEN energy_metric='fossil_share_elec' THEN energy_amount END) AS fossil_share_elec,
-  SUM(CASE WHEN energy_metric='fossil_share_energy' THEN energy_amount END) AS fossil_share_energy,
-  SUM(CASE WHEN energy_metric='biofuel_consumption' THEN energy_amount END) AS biofuel_consumption,
-  SUM(CASE WHEN energy_metric='biofuel_cons_change_pct' THEN energy_amount END) AS biofuel_cons_change_pct,
-  SUM(CASE WHEN energy_metric='biofuel_cons_change_twh' THEN energy_amount END) AS biofuel_cons_change_twh,
-  SUM(CASE WHEN energy_metric='biofuel_cons_per_capita' THEN energy_amount END) AS biofuel_cons_per_capita,
-  SUM(CASE WHEN energy_metric='biofuel_electricity' THEN energy_amount END) AS biofuel_electricity,
-  SUM(CASE WHEN energy_metric='biofuel_elec_per_capita' THEN energy_amount END) AS biofuel_elec_per_capita,
-  SUM(CASE WHEN energy_metric='biofuel_share_elec' THEN energy_amount END) AS biofuel_share_elec,
-  SUM(CASE WHEN energy_metric='biofuel_share_energy' THEN energy_amount END) AS biofuel_share_energy,
-  SUM(CASE WHEN energy_metric='low_carbon_consumption' THEN energy_amount END) AS low_carbon_consumption,
-  SUM(CASE WHEN energy_metric='low_carbon_cons_change_pct' THEN energy_amount END) AS low_carbon_cons_change_pct,
-  SUM(CASE WHEN energy_metric='low_carbon_cons_change_twh' THEN energy_amount END) AS low_carbon_cons_change_twh,
-  SUM(CASE WHEN energy_metric='low_carbon_electricity' THEN energy_amount END) AS low_carbon_electricity,
-  SUM(CASE WHEN energy_metric='low_carbon_elec_per_capita' THEN energy_amount END) AS low_carbon_elec_per_capita,
-  SUM(CASE WHEN energy_metric='low_carbon_share_elec' THEN energy_amount END) AS low_carbon_share_elec,
-  SUM(CASE WHEN energy_metric='low_carbon_share_energy' THEN energy_amount END) AS low_carbon_share_energy,
-  SUM(CASE WHEN energy_metric='nuclear_consumption' THEN energy_amount END) AS nuclear_consumption,
-  SUM(CASE WHEN energy_metric='nuclear_cons_change_pct' THEN energy_amount END) AS nuclear_cons_change_pct,
-  SUM(CASE WHEN energy_metric='nuclear_cons_change_twh' THEN energy_amount END) AS nuclear_cons_change_twh,
-  SUM(CASE WHEN energy_metric='nuclear_electricity' THEN energy_amount END) AS nuclear_electricity,
-  SUM(CASE WHEN energy_metric='nuclear_elec_per_capita' THEN energy_amount END) AS nuclear_elec_per_capita,
-  SUM(CASE WHEN energy_metric='nuclear_energy_per_capita' THEN energy_amount END) AS nuclear_energy_per_capita,
-  SUM(CASE WHEN energy_metric='nuclear_share_elec' THEN energy_amount END) AS nuclear_share_elec,
-  SUM(CASE WHEN energy_metric='nuclear_share_energy' THEN energy_amount END) AS nuclear_share_energy,
-  SUM(CASE WHEN energy_metric='wind_consumption' THEN energy_amount END) AS wind_consumption,
-  SUM(CASE WHEN energy_metric='wind_cons_change_pct' THEN energy_amount END) AS wind_cons_change_pct,
-  SUM(CASE WHEN energy_metric='wind_cons_change_twh' THEN energy_amount END) AS wind_cons_change_twh,
-  SUM(CASE WHEN energy_metric='wind_electricity' THEN energy_amount END) AS wind_electricity,
-  SUM(CASE WHEN energy_metric='wind_elec_per_capita' THEN energy_amount END) AS wind_elec_per_capita,
-  SUM(CASE WHEN energy_metric='wind_energy_per_capita' THEN energy_amount END) AS wind_energy_per_capita,
-  SUM(CASE WHEN energy_metric='wind_share_elec' THEN energy_amount END) AS wind_share_elec,
-  SUM(CASE WHEN energy_metric='wind_share_energy' THEN energy_amount END) AS wind_share_energy,
-  SUM(CASE WHEN energy_metric='solar_consumption' THEN energy_amount END) AS solar_consumption,
-  SUM(CASE WHEN energy_metric='solar_cons_change_pct' THEN energy_amount END) AS solar_cons_change_pct,
-  SUM(CASE WHEN energy_metric='solar_cons_change_twh' THEN energy_amount END) AS solar_cons_change_twh,
-  SUM(CASE WHEN energy_metric='solar_electricity' THEN energy_amount END) AS solar_electricity,
-  SUM(CASE WHEN energy_metric='solar_elec_per_capita' THEN energy_amount END) AS solar_elec_per_capita,
-  SUM(CASE WHEN energy_metric='solar_energy_per_capita' THEN energy_amount END) AS solar_energy_per_capita,
-  SUM(CASE WHEN energy_metric='solar_share_elec' THEN energy_amount END) AS solar_share_elec,
-  SUM(CASE WHEN energy_metric='solar_share_energy' THEN energy_amount END) AS solar_share_energy,
-  SUM(CASE WHEN energy_metric='hydro_consumption' THEN energy_amount END) AS hydro_consumption,
-  SUM(CASE WHEN energy_metric='hydro_cons_change_pct' THEN energy_amount END) AS hydro_cons_change_pct,
-  SUM(CASE WHEN energy_metric='hydro_cons_change_twh' THEN energy_amount END) AS hydro_cons_change_twh,
-  SUM(CASE WHEN energy_metric='hydro_electricity' THEN energy_amount END) AS hydro_electricity,
-  SUM(CASE WHEN energy_metric='hydro_elec_per_capita' THEN energy_amount END) AS hydro_elec_per_capita,
-  SUM(CASE WHEN energy_metric='hydro_energy_per_capita' THEN energy_amount END) AS hydro_energy_per_capita,
-  SUM(CASE WHEN energy_metric='hydro_share_elec' THEN energy_amount END) AS hydro_share_elec,
-  SUM(CASE WHEN energy_metric='hydro_share_energy' THEN energy_amount END) AS hydro_share_energy,
-  SUM(CASE WHEN energy_metric='renewables_consumption' THEN energy_amount END) AS renewables_consumption,
-  SUM(CASE WHEN energy_metric='renewables_cons_change_pct' THEN energy_amount END) AS renewables_cons_change_pct,
-  SUM(CASE WHEN energy_metric='renewables_electricity' THEN energy_amount END) AS renewables_electricity,
-  SUM(CASE WHEN energy_metric='renewables_elec_per_capita' THEN energy_amount END) AS renewables_elec_per_capita,
-  SUM(CASE WHEN energy_metric='renewables_energy_per_capita' THEN energy_amount END) AS renewables_energy_per_capita,
-  SUM(CASE WHEN energy_metric='renewables_share_energy' THEN energy_amount END) AS renewables_share_energy,
-  SUM(CASE WHEN energy_metric='renewables_share_elec' THEN energy_amount END) AS renewables_share_elec,
-  SUM(CASE WHEN energy_metric='other_renewables_consumption' THEN energy_amount END) AS other_renewables_consumption,
-  SUM(CASE WHEN energy_metric='other_renewables_cons_change_pct' THEN energy_amount END) AS other_renewables_cons_change_pct,
-  SUM(CASE WHEN energy_metric='other_renewables_cons_change_twh' THEN energy_amount END) AS other_renewables_cons_change_twh,
-  SUM(CASE WHEN energy_metric='other_renewables_electricity' THEN energy_amount END) AS other_renewables_electricity,
-  SUM(CASE WHEN energy_metric='other_renewables_elec_per_capita' THEN energy_amount END) AS other_renewables_elec_per_capita,
-  SUM(CASE WHEN energy_metric='other_renewables_energy_per_capita' THEN energy_amount END) AS other_renewables_energy_per_capita,
-  SUM(CASE WHEN energy_metric='other_renewables_share_elec' THEN energy_amount END) AS other_renewables_share_elec,
-  SUM(CASE WHEN energy_metric='other_renewables_share_energy' THEN energy_amount END) AS other_renewables_share_energy,
-  SUM(CASE WHEN energy_metric='other_renewables_electricity_exc_biofuel' THEN energy_amount END) AS other_renewables_electricity_exc_biofuel,
-  SUM(CASE WHEN energy_metric='other_renewables_elec_per_capita_exc_biofuel' THEN energy_amount END) AS other_renewables_elec_per_capita_exc_biofuel,
-  SUM(CASE WHEN energy_metric='other_renewables_share_elec_exc_biofuel' THEN energy_amount END) AS other_renewables_share_elec_exc_biofuel,
-  SUM(CASE WHEN energy_metric='primary_energy_consumption' THEN energy_amount END) AS primary_energy_consumption,
-  SUM(CASE WHEN energy_metric='energy_cons_change_pct' THEN energy_amount END) AS energy_cons_change_pct,
-  SUM(CASE WHEN energy_metric='energy_cons_change_twh' THEN energy_amount END) AS energy_cons_change_twh,
-  SUM(CASE WHEN energy_metric='per_capita_electricity' THEN energy_amount END) AS per_capita_electricity,
-  SUM(CASE WHEN energy_metric='energy_per_capita' THEN energy_amount END) AS energy_per_capita,
-  SUM(CASE WHEN energy_metric='energy_per_gdp' THEN energy_amount END) AS energy_per_gdp
+  SUM(CASE WHEN energy_metric='coal_production'
+  THEN energy_amount END) AS coal_production,
+  SUM(CASE WHEN energy_metric='coal_prod_change_pct'
+  THEN energy_amount END) AS coal_prod_change_pct,
+  SUM(CASE WHEN energy_metric='coal_prod_change_twh'
+  THEN energy_amount END) AS coal_prod_change_twh,
+  SUM(CASE WHEN energy_metric='coal_prod_per_capita'
+  THEN energy_amount END) AS coal_prod_per_capita,
+  SUM(CASE WHEN energy_metric='coal_consumption'
+  THEN energy_amount END) AS coal_consumption,
+  SUM(CASE WHEN energy_metric='coal_cons_change_pct'
+  THEN energy_amount END) AS coal_cons_change_pct,
+  SUM(CASE WHEN energy_metric='coal_cons_change_twh'
+  THEN energy_amount END) AS coal_cons_change_twh,
+  SUM(CASE WHEN energy_metric='coal_cons_per_capita'
+  THEN energy_amount END) AS coal_cons_per_capita,
+  SUM(CASE WHEN energy_metric='coal_electricity'
+  THEN energy_amount END) AS coal_electricity,
+  SUM(CASE WHEN energy_metric='coal_elec_per_capita'
+  THEN energy_amount END) AS coal_elec_per_capita,
+  SUM(CASE WHEN energy_metric='coal_share_elec'
+  THEN energy_amount END) AS coal_share_elec,
+  SUM(CASE WHEN energy_metric='coal_share_energy'
+  THEN energy_amount END) AS coal_share_energy,
+  SUM(CASE WHEN energy_metric='oil_production'
+  THEN energy_amount END) AS oil_production,
+  SUM(CASE WHEN energy_metric='oil_prod_change_pct'
+  THEN energy_amount END) AS oil_prod_change_pct,
+  SUM(CASE WHEN energy_metric='oil_prod_change_twh'
+  THEN energy_amount END) AS oil_prod_change_twh,
+  SUM(CASE WHEN energy_metric='oil_prod_per_capita'
+  THEN energy_amount END) AS oil_prod_per_capita,
+  SUM(CASE WHEN energy_metric='oil_consumption'
+  THEN energy_amount END) AS oil_consumption,
+  SUM(CASE WHEN energy_metric='oil_cons_change_pct'
+  THEN energy_amount END) AS oil_cons_change_pct,
+  SUM(CASE WHEN energy_metric='oil_cons_change_twh'
+  THEN energy_amount END) AS oil_cons_change_twh,
+  SUM(CASE WHEN energy_metric='oil_electricity'
+  THEN energy_amount END) AS oil_electricity,
+  SUM(CASE WHEN energy_metric='oil_elec_per_capita'
+  THEN energy_amount END) AS oil_elec_per_capita,
+  SUM(CASE WHEN energy_metric='oil_energy_per_capita'
+  THEN energy_amount END) AS oil_energy_per_capita,
+  SUM(CASE WHEN energy_metric='oil_share_elec'
+  THEN energy_amount END) AS oil_share_elec,
+  SUM(CASE WHEN energy_metric='oil_share_energy'
+  THEN energy_amount END) AS oil_share_energy,
+  SUM(CASE WHEN energy_metric='gas_production'
+  THEN energy_amount END) AS gas_production,
+  SUM(CASE WHEN energy_metric='gas_prod_change_pct'
+  THEN energy_amount END) AS gas_prod_change_pct,
+  SUM(CASE WHEN energy_metric='gas_prod_change_twh'
+  THEN energy_amount END) AS gas_prod_change_twh,
+  SUM(CASE WHEN energy_metric='gas_prod_per_capita'
+  THEN energy_amount END) AS gas_prod_per_capita,
+  SUM(CASE WHEN energy_metric='gas_consumption'
+  THEN energy_amount END) AS gas_consumption,
+  SUM(CASE WHEN energy_metric='gas_cons_change_pct'
+  THEN energy_amount END) AS gas_cons_change_pct,
+  SUM(CASE WHEN energy_metric='gas_cons_change_twh'
+  THEN energy_amount END) AS gas_cons_change_twh,
+  SUM(CASE WHEN energy_metric='gas_electricity'
+  THEN energy_amount END) AS gas_electricity,
+  SUM(CASE WHEN energy_metric='gas_elec_per_capita'
+  THEN energy_amount END) AS gas_elec_per_capita,
+  SUM(CASE WHEN energy_metric='gas_energy_per_capita'
+  THEN energy_amount END) AS gas_energy_per_capita,
+  SUM(CASE WHEN energy_metric='gas_share_elec'
+  THEN energy_amount END) AS gas_share_elec,
+  SUM(CASE WHEN energy_metric='gas_share_energy'
+  THEN energy_amount END) AS gas_share_energy,
+  SUM(CASE WHEN energy_metric='fossil_fuel_consumption'
+  THEN energy_amount END) AS fossil_fuel_consumption,
+  SUM(CASE WHEN energy_metric='fossil_cons_change_pct'
+  THEN energy_amount END) AS fossil_cons_change_pct,
+  SUM(CASE WHEN energy_metric='fossil_cons_change_twh'
+  THEN energy_amount END) AS fossil_cons_change_twh,
+  SUM(CASE WHEN energy_metric='fossil_cons_per_capita'
+  THEN energy_amount END) AS fossil_cons_per_capita,
+  SUM(CASE WHEN energy_metric='fossil_electricity'
+  THEN energy_amount END) AS fossil_electricity,
+  SUM(CASE WHEN energy_metric='fossil_energy_per_capita'
+  THEN energy_amount END) AS fossil_energy_per_capita,
+  SUM(CASE WHEN energy_metric='fossil_share_elec'
+  THEN energy_amount END) AS fossil_share_elec,
+  SUM(CASE WHEN energy_metric='fossil_share_energy'
+  THEN energy_amount END) AS fossil_share_energy,
+  SUM(CASE WHEN energy_metric='biofuel_consumption'
+  THEN energy_amount END) AS biofuel_consumption,
+  SUM(CASE WHEN energy_metric='biofuel_cons_change_pct'
+  THEN energy_amount END) AS biofuel_cons_change_pct,
+  SUM(CASE WHEN energy_metric='biofuel_cons_change_twh'
+  THEN energy_amount END) AS biofuel_cons_change_twh,
+  SUM(CASE WHEN energy_metric='biofuel_cons_per_capita'
+  THEN energy_amount END) AS biofuel_cons_per_capita,
+  SUM(CASE WHEN energy_metric='biofuel_electricity'
+  THEN energy_amount END) AS biofuel_electricity,
+  SUM(CASE WHEN energy_metric='biofuel_elec_per_capita'
+  THEN energy_amount END) AS biofuel_elec_per_capita,
+  SUM(CASE WHEN energy_metric='biofuel_share_elec'
+  THEN energy_amount END) AS biofuel_share_elec,
+  SUM(CASE WHEN energy_metric='biofuel_share_energy'
+  THEN energy_amount END) AS biofuel_share_energy,
+  SUM(CASE WHEN energy_metric='low_carbon_consumption'
+  THEN energy_amount END) AS low_carbon_consumption,
+  SUM(CASE WHEN energy_metric='low_carbon_cons_change_pct'
+  THEN energy_amount END) AS low_carbon_cons_change_pct,
+  SUM(CASE WHEN energy_metric='low_carbon_cons_change_twh'
+  THEN energy_amount END) AS low_carbon_cons_change_twh,
+  SUM(CASE WHEN energy_metric='low_carbon_electricity'
+  THEN energy_amount END) AS low_carbon_electricity,
+  SUM(CASE WHEN energy_metric='low_carbon_elec_per_capita'
+  THEN energy_amount END) AS low_carbon_elec_per_capita,
+  SUM(CASE WHEN energy_metric='low_carbon_share_elec'
+  THEN energy_amount END) AS low_carbon_share_elec,
+  SUM(CASE WHEN energy_metric='low_carbon_share_energy'
+  THEN energy_amount END) AS low_carbon_share_energy,
+  SUM(CASE WHEN energy_metric='nuclear_consumption'
+  THEN energy_amount END) AS nuclear_consumption,
+  SUM(CASE WHEN energy_metric='nuclear_cons_change_pct'
+  THEN energy_amount END) AS nuclear_cons_change_pct,
+  SUM(CASE WHEN energy_metric='nuclear_cons_change_twh'
+  THEN energy_amount END) AS nuclear_cons_change_twh,
+  SUM(CASE WHEN energy_metric='nuclear_electricity'
+  THEN energy_amount END) AS nuclear_electricity,
+  SUM(CASE WHEN energy_metric='nuclear_elec_per_capita'
+  THEN energy_amount END) AS nuclear_elec_per_capita,
+  SUM(CASE WHEN energy_metric='nuclear_energy_per_capita'
+  THEN energy_amount END) AS nuclear_energy_per_capita,
+  SUM(CASE WHEN energy_metric='nuclear_share_elec'
+  THEN energy_amount END) AS nuclear_share_elec,
+  SUM(CASE WHEN energy_metric='nuclear_share_energy'
+  THEN energy_amount END) AS nuclear_share_energy,
+  SUM(CASE WHEN energy_metric='wind_consumption'
+  THEN energy_amount END) AS wind_consumption,
+  SUM(CASE WHEN energy_metric='wind_cons_change_pct'
+  THEN energy_amount END) AS wind_cons_change_pct,
+  SUM(CASE WHEN energy_metric='wind_cons_change_twh'
+  THEN energy_amount END) AS wind_cons_change_twh,
+  SUM(CASE WHEN energy_metric='wind_electricity'
+  THEN energy_amount END) AS wind_electricity,
+  SUM(CASE WHEN energy_metric='wind_elec_per_capita'
+  THEN energy_amount END) AS wind_elec_per_capita,
+  SUM(CASE WHEN energy_metric='wind_energy_per_capita'
+  THEN energy_amount END) AS wind_energy_per_capita,
+  SUM(CASE WHEN energy_metric='wind_share_elec'
+  THEN energy_amount END) AS wind_share_elec,
+  SUM(CASE WHEN energy_metric='wind_share_energy'
+  THEN energy_amount END) AS wind_share_energy,
+  SUM(CASE WHEN energy_metric='solar_consumption'
+  THEN energy_amount END) AS solar_consumption,
+  SUM(CASE WHEN energy_metric='solar_cons_change_pct'
+  THEN energy_amount END) AS solar_cons_change_pct,
+  SUM(CASE WHEN energy_metric='solar_cons_change_twh'
+  THEN energy_amount END) AS solar_cons_change_twh,
+  SUM(CASE WHEN energy_metric='solar_electricity'
+  THEN energy_amount END) AS solar_electricity,
+  SUM(CASE WHEN energy_metric='solar_elec_per_capita'
+  THEN energy_amount END) AS solar_elec_per_capita,
+  SUM(CASE WHEN energy_metric='solar_energy_per_capita'
+  THEN energy_amount END) AS solar_energy_per_capita,
+  SUM(CASE WHEN energy_metric='solar_share_elec'
+  THEN energy_amount END) AS solar_share_elec,
+  SUM(CASE WHEN energy_metric='solar_share_energy'
+  THEN energy_amount END) AS solar_share_energy,
+  SUM(CASE WHEN energy_metric='hydro_consumption'
+  THEN energy_amount END) AS hydro_consumption,
+  SUM(CASE WHEN energy_metric='hydro_cons_change_pct'
+  THEN energy_amount END) AS hydro_cons_change_pct,
+  SUM(CASE WHEN energy_metric='hydro_cons_change_twh'
+  THEN energy_amount END) AS hydro_cons_change_twh,
+  SUM(CASE WHEN energy_metric='hydro_electricity'
+  THEN energy_amount END) AS hydro_electricity,
+  SUM(CASE WHEN energy_metric='hydro_elec_per_capita'
+  THEN energy_amount END) AS hydro_elec_per_capita,
+  SUM(CASE WHEN energy_metric='hydro_energy_per_capita'
+  THEN energy_amount END) AS hydro_energy_per_capita,
+  SUM(CASE WHEN energy_metric='hydro_share_elec'
+  THEN energy_amount END) AS hydro_share_elec,
+  SUM(CASE WHEN energy_metric='hydro_share_energy'
+  THEN energy_amount END) AS hydro_share_energy,
+  SUM(CASE WHEN energy_metric='renewables_consumption'
+  THEN energy_amount END) AS renewables_consumption,
+  SUM(CASE WHEN energy_metric='renewables_cons_change_pct'
+  THEN energy_amount END) AS renewables_cons_change_pct,
+  SUM(CASE WHEN energy_metric='renewables_electricity'
+  THEN energy_amount END) AS renewables_electricity,
+  SUM(CASE WHEN energy_metric='renewables_elec_per_capita'
+  THEN energy_amount END) AS renewables_elec_per_capita,
+  SUM(CASE WHEN energy_metric='renewables_energy_per_capita'
+  THEN energy_amount END) AS renewables_energy_per_capita,
+  SUM(CASE WHEN energy_metric='renewables_share_energy'
+  THEN energy_amount END) AS renewables_share_energy,
+  SUM(CASE WHEN energy_metric='renewables_share_elec'
+  THEN energy_amount END) AS renewables_share_elec,
+  SUM(CASE WHEN energy_metric='other_renewables_consumption'
+  THEN energy_amount END) AS other_renewables_consumption,
+  SUM(CASE WHEN energy_metric='other_renewables_cons_change_pct'
+  THEN energy_amount END) AS other_renewables_cons_change_pct,
+  SUM(CASE WHEN energy_metric='other_renewables_cons_change_twh'
+  THEN energy_amount END) AS other_renewables_cons_change_twh,
+  SUM(CASE WHEN energy_metric='other_renewables_electricity'
+  THEN energy_amount END) AS other_renewables_electricity,
+  SUM(CASE WHEN energy_metric='other_renewables_elec_per_capita'
+  THEN energy_amount END) AS other_renewables_elec_per_capita,
+  SUM(CASE WHEN energy_metric='other_renewables_energy_per_capita'
+  THEN energy_amount END) AS other_renewables_energy_per_capita,
+  SUM(CASE WHEN energy_metric='other_renewables_share_elec'
+  THEN energy_amount END) AS other_renewables_share_elec,
+  SUM(CASE WHEN energy_metric='other_renewables_share_energy'
+  THEN energy_amount END) AS other_renewables_share_energy,
+  SUM(CASE WHEN energy_metric='other_renewables_electricity_exc_biofuel'
+  THEN energy_amount END) AS other_renewables_electricity_exc_biofuel,
+  SUM(CASE WHEN energy_metric='other_renewables_elec_per_capita_exc_biofuel'
+  THEN energy_amount END) AS other_renewables_elec_per_capita_exc_biofuel,
+  SUM(CASE WHEN energy_metric='other_renewables_share_elec_exc_biofuel'
+  THEN energy_amount END) AS other_renewables_share_elec_exc_biofuel,
+  SUM(CASE WHEN energy_metric='primary_energy_consumption'
+  THEN energy_amount END) AS primary_energy_consumption,
+  SUM(CASE WHEN energy_metric='energy_cons_change_pct'
+  THEN energy_amount END) AS energy_cons_change_pct,
+  SUM(CASE WHEN energy_metric='energy_cons_change_twh'
+  THEN energy_amount END) AS energy_cons_change_twh,
+  SUM(CASE WHEN energy_metric='per_capita_electricity'
+  THEN energy_amount END) AS per_capita_electricity,
+  SUM(CASE WHEN energy_metric='energy_per_capita'
+  THEN energy_amount END) AS energy_per_capita,
+  SUM(CASE WHEN energy_metric='energy_per_gdp'
+  THEN energy_amount END) AS energy_per_gdp
   FROM
   staging_energy
   GROUP BY iso_code, country, year, population, gdp
   )
 
-SELECT da.date_id, co.country_id, AVG(te.average_temp) AS temperature, 
-em.co2_emissions, em.ch4_emissions, em.n2o_emissions, en.population, 
-en.gdp, en.coal_production, en.coal_prod_change_pct, 
-en.coal_prod_change_twh, en.coal_prod_per_capita, en.coal_consumption, 
-en.coal_cons_change_pct, en.coal_cons_change_twh, 
-en.coal_cons_per_capita, en.coal_electricity, en.coal_elec_per_capita, 
-en.coal_share_elec, en.coal_share_energy, en.oil_production, 
-en.oil_prod_change_pct, en.oil_prod_change_twh, en.oil_prod_per_capita, 
-en.oil_consumption, en.oil_cons_change_pct, en.oil_cons_change_twh, 
-en.oil_electricity, en.oil_elec_per_capita, en.oil_energy_per_capita, 
-en.oil_share_elec, en.oil_share_energy, en.gas_production, 
-en.gas_prod_change_pct, en.gas_prod_change_twh, en.gas_prod_per_capita, 
-en.gas_consumption, en.gas_cons_change_pct, en.gas_cons_change_twh, 
-en.gas_electricity, en.gas_elec_per_capita, en.gas_energy_per_capita, 
-en.gas_share_elec, en.gas_share_energy, en.fossil_fuel_consumption, 
-en.fossil_cons_change_pct, en.fossil_cons_change_twh, 
-en.fossil_cons_per_capita, en.fossil_electricity, 
-en.fossil_energy_per_capita, en.fossil_share_elec, 
-en.fossil_share_energy, en.biofuel_consumption, 
-en.biofuel_cons_change_pct, en.biofuel_cons_change_twh, 
-en.biofuel_cons_per_capita, en.biofuel_electricity, 
-en.biofuel_elec_per_capita, en.biofuel_share_elec, 
-en.biofuel_share_energy, en.low_carbon_consumption, 
-en.low_carbon_cons_change_pct, en.low_carbon_cons_change_twh, 
-en.low_carbon_electricity, en.low_carbon_elec_per_capita, 
-en.low_carbon_share_elec, en.low_carbon_share_energy, 
-en.nuclear_consumption, en.nuclear_cons_change_pct, 
-en.nuclear_cons_change_twh, en.nuclear_electricity, 
-en.nuclear_elec_per_capita, en.nuclear_energy_per_capita, 
-en.nuclear_share_elec, en.nuclear_share_energy, en.wind_consumption, 
-en.wind_cons_change_pct, en.wind_cons_change_twh, en.wind_electricity, 
-en.wind_elec_per_capita, en.wind_energy_per_capita, en.wind_share_elec, 
-en.wind_share_energy, en.solar_consumption, en.solar_cons_change_pct, 
-en.solar_cons_change_twh, en.solar_electricity, 
-en.solar_elec_per_capita, en.solar_energy_per_capita, 
-en.solar_share_elec, en.solar_share_energy, en.hydro_consumption, 
-en.hydro_cons_change_pct, en.hydro_cons_change_twh, 
-en.hydro_electricity, en.hydro_elec_per_capita, 
-en.hydro_energy_per_capita, en.hydro_share_elec, 
-en.hydro_share_energy, en.renewables_consumption, 
-en.renewables_cons_change_pct, en.renewables_electricity, 
-en.renewables_elec_per_capita, en.renewables_energy_per_capita, 
-en.renewables_share_energy, en.renewables_share_elec, 
-en.other_renewables_consumption, en.other_renewables_cons_change_pct, 
-en.other_renewables_cons_change_twh, en.other_renewables_electricity, 
-en.other_renewables_elec_per_capita, 
-en.other_renewables_energy_per_capita, en.other_renewables_share_elec, 
-en.other_renewables_share_energy, 
-en.other_renewables_electricity_exc_biofuel, 
-en.other_renewables_elec_per_capita_exc_biofuel, 
-en.other_renewables_share_elec_exc_biofuel, 
-en.primary_energy_consumption, en.energy_cons_change_pct, 
-en.energy_cons_change_twh, en.per_capita_electricity, 
+SELECT da.date_id, co.country_id, AVG(te.average_temp) AS temperature,
+em.co2_emissions, em.ch4_emissions, em.n2o_emissions, en.population,
+en.gdp, en.coal_production, en.coal_prod_change_pct,
+en.coal_prod_change_twh, en.coal_prod_per_capita, en.coal_consumption,
+en.coal_cons_change_pct, en.coal_cons_change_twh,
+en.coal_cons_per_capita, en.coal_electricity, en.coal_elec_per_capita,
+en.coal_share_elec, en.coal_share_energy, en.oil_production,
+en.oil_prod_change_pct, en.oil_prod_change_twh, en.oil_prod_per_capita,
+en.oil_consumption, en.oil_cons_change_pct, en.oil_cons_change_twh,
+en.oil_electricity, en.oil_elec_per_capita, en.oil_energy_per_capita,
+en.oil_share_elec, en.oil_share_energy, en.gas_production,
+en.gas_prod_change_pct, en.gas_prod_change_twh, en.gas_prod_per_capita,
+en.gas_consumption, en.gas_cons_change_pct, en.gas_cons_change_twh,
+en.gas_electricity, en.gas_elec_per_capita, en.gas_energy_per_capita,
+en.gas_share_elec, en.gas_share_energy, en.fossil_fuel_consumption,
+en.fossil_cons_change_pct, en.fossil_cons_change_twh,
+en.fossil_cons_per_capita, en.fossil_electricity,
+en.fossil_energy_per_capita, en.fossil_share_elec,
+en.fossil_share_energy, en.biofuel_consumption,
+en.biofuel_cons_change_pct, en.biofuel_cons_change_twh,
+en.biofuel_cons_per_capita, en.biofuel_electricity,
+en.biofuel_elec_per_capita, en.biofuel_share_elec,
+en.biofuel_share_energy, en.low_carbon_consumption,
+en.low_carbon_cons_change_pct, en.low_carbon_cons_change_twh,
+en.low_carbon_electricity, en.low_carbon_elec_per_capita,
+en.low_carbon_share_elec, en.low_carbon_share_energy,
+en.nuclear_consumption, en.nuclear_cons_change_pct,
+en.nuclear_cons_change_twh, en.nuclear_electricity,
+en.nuclear_elec_per_capita, en.nuclear_energy_per_capita,
+en.nuclear_share_elec, en.nuclear_share_energy, en.wind_consumption,
+en.wind_cons_change_pct, en.wind_cons_change_twh, en.wind_electricity,
+en.wind_elec_per_capita, en.wind_energy_per_capita, en.wind_share_elec,
+en.wind_share_energy, en.solar_consumption, en.solar_cons_change_pct,
+en.solar_cons_change_twh, en.solar_electricity,
+en.solar_elec_per_capita, en.solar_energy_per_capita,
+en.solar_share_elec, en.solar_share_energy, en.hydro_consumption,
+en.hydro_cons_change_pct, en.hydro_cons_change_twh,
+en.hydro_electricity, en.hydro_elec_per_capita,
+en.hydro_energy_per_capita, en.hydro_share_elec,
+en.hydro_share_energy, en.renewables_consumption,
+en.renewables_cons_change_pct, en.renewables_electricity,
+en.renewables_elec_per_capita, en.renewables_energy_per_capita,
+en.renewables_share_energy, en.renewables_share_elec,
+en.other_renewables_consumption, en.other_renewables_cons_change_pct,
+en.other_renewables_cons_change_twh, en.other_renewables_electricity,
+en.other_renewables_elec_per_capita,
+en.other_renewables_energy_per_capita, en.other_renewables_share_elec,
+en.other_renewables_share_energy,
+en.other_renewables_electricity_exc_biofuel,
+en.other_renewables_elec_per_capita_exc_biofuel,
+en.other_renewables_share_elec_exc_biofuel,
+en.primary_energy_consumption, en.energy_cons_change_pct,
+en.energy_cons_change_twh, en.per_capita_electricity,
 en.energy_per_capita, en.energy_per_gdp
 
 FROM staging_temp te
-INNER JOIN date da 
-	ON EXTRACT(year FROM te.dt) = da.year
-INNER JOIN country co 
-	ON te.country = co.name
+INNER JOIN date da
+ON EXTRACT(year FROM te.dt) = da.year
+INNER JOIN country co
+ON te.country = co.name
 INNER JOIN emissions em
-	ON da.year = em.year 
-    	AND co.iso_code = em.iso_code
+ON da.year = em.year
+AND co.iso_code = em.iso_code
 INNER JOIN energy en
-	ON da.year = en.year
-    	AND co.name = en.country
-        AND co.iso_code = en.iso_code
-GROUP BY date_id, country_id, en.population, en.gdp, em.co2_emissions, 
-em.ch4_emissions, em.n2o_emissions, en.coal_production, 
-en.coal_prod_change_pct, en.coal_prod_change_twh, 
-en.coal_prod_per_capita, en.coal_consumption, en.coal_cons_change_pct, 
-en.coal_cons_change_twh, en.coal_cons_per_capita, en.coal_electricity, 
-en.coal_elec_per_capita, en.coal_share_elec, en.coal_share_energy, 
-en.oil_production, en.oil_prod_change_pct, en.oil_prod_change_twh, 
-en.oil_prod_per_capita, en.oil_consumption, en.oil_cons_change_pct, 
-en.oil_cons_change_twh, en.oil_electricity, en.oil_elec_per_capita, 
-en.oil_energy_per_capita, en.oil_share_elec, en.oil_share_energy, 
-en.gas_production, en.gas_prod_change_pct, en.gas_prod_change_twh, 
-en.gas_prod_per_capita, en.gas_consumption, en.gas_cons_change_pct, 
-en.gas_cons_change_twh, en.gas_electricity, en.gas_elec_per_capita, 
-en.gas_energy_per_capita, en.gas_share_elec, en.gas_share_energy, 
-en.fossil_fuel_consumption, en.fossil_cons_change_pct, 
-en.fossil_cons_change_twh, en.fossil_cons_per_capita, 
-en.fossil_electricity, en.fossil_energy_per_capita, 
-en.fossil_share_elec, en.fossil_share_energy, en.biofuel_consumption, 
-en.biofuel_cons_change_pct, en.biofuel_cons_change_twh, 
-en.biofuel_cons_per_capita, en.biofuel_electricity, 
-en.biofuel_elec_per_capita, en.biofuel_share_elec, 
-en.biofuel_share_energy, en.low_carbon_consumption, 
-en.low_carbon_cons_change_pct, en.low_carbon_cons_change_twh, 
-en.low_carbon_electricity, en.low_carbon_elec_per_capita, 
+ON da.year = en.year
+AND co.name = en.country
+AND co.iso_code = en.iso_code
+GROUP BY date_id, country_id, en.population, en.gdp, em.co2_emissions,
+em.ch4_emissions, em.n2o_emissions, en.coal_production,
+en.coal_prod_change_pct, en.coal_prod_change_twh,
+en.coal_prod_per_capita, en.coal_consumption, en.coal_cons_change_pct,
+en.coal_cons_change_twh, en.coal_cons_per_capita, en.coal_electricity,
+en.coal_elec_per_capita, en.coal_share_elec, en.coal_share_energy,
+en.oil_production, en.oil_prod_change_pct, en.oil_prod_change_twh,
+en.oil_prod_per_capita, en.oil_consumption, en.oil_cons_change_pct,
+en.oil_cons_change_twh, en.oil_electricity, en.oil_elec_per_capita,
+en.oil_energy_per_capita, en.oil_share_elec, en.oil_share_energy,
+en.gas_production, en.gas_prod_change_pct, en.gas_prod_change_twh,
+en.gas_prod_per_capita, en.gas_consumption, en.gas_cons_change_pct,
+en.gas_cons_change_twh, en.gas_electricity, en.gas_elec_per_capita,
+en.gas_energy_per_capita, en.gas_share_elec, en.gas_share_energy,
+en.fossil_fuel_consumption, en.fossil_cons_change_pct,
+en.fossil_cons_change_twh, en.fossil_cons_per_capita,
+en.fossil_electricity, en.fossil_energy_per_capita,
+en.fossil_share_elec, en.fossil_share_energy, en.biofuel_consumption,
+en.biofuel_cons_change_pct, en.biofuel_cons_change_twh,
+en.biofuel_cons_per_capita, en.biofuel_electricity,
+en.biofuel_elec_per_capita, en.biofuel_share_elec,
+en.biofuel_share_energy, en.low_carbon_consumption,
+en.low_carbon_cons_change_pct, en.low_carbon_cons_change_twh,
+en.low_carbon_electricity, en.low_carbon_elec_per_capita,
 en.low_carbon_share_elec, en.low_carbon_share_energy,
-en.nuclear_consumption, en.nuclear_cons_change_pct, 
-en.nuclear_cons_change_twh, en.nuclear_electricity, 
-en.nuclear_elec_per_capita, en.nuclear_energy_per_capita, 
-en.nuclear_share_elec, en.nuclear_share_energy, en.wind_consumption, 
-en.wind_cons_change_pct, en.wind_cons_change_twh, en.wind_electricity, 
-en.wind_elec_per_capita, en.wind_energy_per_capita, en.wind_share_elec, 
-en.wind_share_energy, en.solar_consumption, en.solar_cons_change_pct, 
-en.solar_cons_change_twh, en.solar_electricity, 
-en.solar_elec_per_capita, en.solar_energy_per_capita, 
-en.solar_share_elec, en.solar_share_energy, en.hydro_consumption, 
-en.hydro_cons_change_pct, en.hydro_cons_change_twh, 
-en.hydro_electricity, en.hydro_elec_per_capita, 
-en.hydro_energy_per_capita, en.hydro_share_elec, en.hydro_share_energy, 
-en.renewables_consumption, en.renewables_cons_change_pct, 
-en.renewables_electricity, en.renewables_elec_per_capita, 
-en.renewables_energy_per_capita, en.renewables_share_energy, 
-en.renewables_share_elec, en.other_renewables_consumption, 
-en.other_renewables_cons_change_pct, 
-en.other_renewables_cons_change_twh, en.other_renewables_electricity, 
-en.other_renewables_elec_per_capita, 
-en.other_renewables_energy_per_capita, en.other_renewables_share_elec, 
-en.other_renewables_share_energy, 
-en.other_renewables_electricity_exc_biofuel, 
-en.other_renewables_elec_per_capita_exc_biofuel, 
-en.other_renewables_share_elec_exc_biofuel, 
-en.primary_energy_consumption, en.energy_cons_change_pct, 
-en.energy_cons_change_twh, en.per_capita_electricity, 
+en.nuclear_consumption, en.nuclear_cons_change_pct,
+en.nuclear_cons_change_twh, en.nuclear_electricity,
+en.nuclear_elec_per_capita, en.nuclear_energy_per_capita,
+en.nuclear_share_elec, en.nuclear_share_energy, en.wind_consumption,
+en.wind_cons_change_pct, en.wind_cons_change_twh, en.wind_electricity,
+en.wind_elec_per_capita, en.wind_energy_per_capita, en.wind_share_elec,
+en.wind_share_energy, en.solar_consumption, en.solar_cons_change_pct,
+en.solar_cons_change_twh, en.solar_electricity,
+en.solar_elec_per_capita, en.solar_energy_per_capita,
+en.solar_share_elec, en.solar_share_energy, en.hydro_consumption,
+en.hydro_cons_change_pct, en.hydro_cons_change_twh,
+en.hydro_electricity, en.hydro_elec_per_capita,
+en.hydro_energy_per_capita, en.hydro_share_elec, en.hydro_share_energy,
+en.renewables_consumption, en.renewables_cons_change_pct,
+en.renewables_electricity, en.renewables_elec_per_capita,
+en.renewables_energy_per_capita, en.renewables_share_energy,
+en.renewables_share_elec, en.other_renewables_consumption,
+en.other_renewables_cons_change_pct,
+en.other_renewables_cons_change_twh, en.other_renewables_electricity,
+en.other_renewables_elec_per_capita,
+en.other_renewables_energy_per_capita, en.other_renewables_share_elec,
+en.other_renewables_share_energy,
+en.other_renewables_electricity_exc_biofuel,
+en.other_renewables_elec_per_capita_exc_biofuel,
+en.other_renewables_share_elec_exc_biofuel,
+en.primary_energy_consumption, en.energy_cons_change_pct,
+en.energy_cons_change_twh, en.per_capita_electricity,
 en.energy_per_capita, en.energy_per_gdp
 """)
 
 
 # QUERY LIST
 
-create_table_queries = [staging_temp_table_create, 
-            staging_emissions_table_create, staging_energy_table_create, 
-            date_table_create, country_table_create, fact_table_create]
+create_table_queries = [staging_temp_table_create,
+                        staging_emissions_table_create,
+                        staging_energy_table_create,
+                        date_table_create, country_table_create,
+                        fact_table_create]
 
-drop_table_queries = [staging_temp_table_drop, 
-            staging_emissions_table_drop, staging_energy_table_drop, 
-            date_table_drop, country_table_drop, fact_table_drop]
+drop_table_queries = [staging_temp_table_drop,
+                      staging_emissions_table_drop, staging_energy_table_drop,
+                      date_table_drop, country_table_drop, fact_table_drop]
 
-copy_table_queries = [staging_temp_copy, staging_emissions_copy, 
-            staging_energy_copy]
+copy_table_queries = [staging_temp_copy, staging_emissions_copy,
+                      staging_energy_copy]
 
-insert_table_queries = [country_table_insert, date_table_insert, 
-            fact_table_insert]
+insert_table_queries = [country_table_insert, date_table_insert,
+                        fact_table_insert]
