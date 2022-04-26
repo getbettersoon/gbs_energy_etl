@@ -1,3 +1,8 @@
+import sys
+from pathlib import Path
+this_file = Path(__file__).resolve()
+app_root = this_file.parents[1]
+sys.path.append(str(app_root))
 import logging
 import psycopg2
 from gbs_energy_etl.settings import config

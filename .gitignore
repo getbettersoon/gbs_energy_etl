@@ -2,3 +2,4 @@ aws.cfg
 .*
 **/__pycache__
 !.gitignore
+tests/test_import.py
