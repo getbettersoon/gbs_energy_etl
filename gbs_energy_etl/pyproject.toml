@@ -1,0 +1,19 @@
+[build-system]
+requires =["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gbs_energy_etl"
+version = "1.0"
+description = "This pipeline takes three datasets and transforms them into dimensional model in Amazon Redshift."
+readme = "README.md"
+requiers-python = "3.9.6"
+dependencies = [
+    "psycopg2 == 2.9.3"
+
+]
+
+[project.scripts]
+etl = "gbs-energy-etl.etl.py"
+main_connector = "gbs-energy-etl.main_connector.py"
+settings = "gbs-energy-etl.settings.py" 

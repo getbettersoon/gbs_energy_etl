@@ -667,16 +667,13 @@ en.energy_per_capita, en.energy_per_gdp
 
 
 # QUERY LIST
-
-create_table_queries = [staging_temp_table_create,
-                        staging_emissions_table_create,
-                        staging_energy_table_create,
-                        date_table_create, country_table_create,
-                        fact_table_create]
-
-drop_table_queries = [staging_temp_table_drop,
-                      staging_emissions_table_drop, staging_energy_table_drop,
-                      date_table_drop, country_table_drop, fact_table_drop]
+execute_table_queries = [staging_temp_table_drop, staging_emissions_table_drop,
+                         staging_energy_table_drop, date_table_drop,
+                         country_table_drop, fact_table_drop,
+                         staging_temp_table_create,
+                         staging_emissions_table_create,
+                         staging_energy_table_create, date_table_create,
+                         country_table_create, fact_table_create]
 
 copy_table_queries = [staging_temp_copy, staging_emissions_copy,
                       staging_energy_copy]
