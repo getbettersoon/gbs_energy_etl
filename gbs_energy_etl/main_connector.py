@@ -1,8 +1,3 @@
-import sys
-from pathlib import Path
-this_file = Path(__file__).resolve()
-app_root = this_file.parents[1]
-sys.path.append(str(app_root))
 import logging
 import psycopg2
 from gbs_energy_etl.settings import config
@@ -25,11 +20,8 @@ def main():
     cur = conn.cursor()
 
     # clean_data()
-    logging.info('Starting table creation...')
     execute_tables(cur, conn, execute_table_queries)
-    logging.info('Starting staging...')
     load_staging_tables(cur, conn, copy_table_queries)
-    logging.info('Starting final insert...')
     insert_final_tables(cur, conn, insert_table_queries)
     conn.close()
 

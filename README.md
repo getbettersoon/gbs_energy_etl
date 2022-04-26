@@ -10,6 +10,16 @@ This pipeline takes three datasets from my bucket in Amazon S3:</br>
 
 and transforms them into dimensional model in Amazon Redshift.</br></br>
 
+## Usage
+
+- You will need a Redshift cluster. Next use config template `gbs_energy_etl/aws_template.cfg` to add your cluster/AWS details. Do not change the order of fields.</br>
+
+- Either add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.</br></br>
+
+- Install dependencies from requirements.txt
+
+- Run `gbs_energy_etl/main_connector.py`</br></br>
+
 ## About source datasets
 
 ### "GlobalLandTemperaturesByCountry"
@@ -45,16 +55,3 @@ Our World In Data is a non-profit organization providing data to tackle variety 
 Final tables show historical temperature, gas emissions as well as energy production and consumption,
 by year, by country. Data covers time range from 1900 to 2021.</br></br>
 
-## Usage
-
-### Set up environment
-
-- You will need a Redshift cluster. Next use config template `gbs_energy_etl/aws_template.cfg` to add your cluster/AWS details. Do not change the order of fields.</br>
-
-- Either add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.</br></br>
-
-### Run the script
-
-- Run `gbs_energy_etl/create_tables.py`
-
-- Run `gbs_energy_etl/etl.py`
