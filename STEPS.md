@@ -183,5 +183,5 @@ It also integrates well with other AWS products, like S3. Amazon S3 allowed me t
 ### Data dictionary </br> 
 
 ![data dict 1](/img/data_dict1.png)</br>
-|				|![data dict 2](/img/data_dict2.png)|</br>
-|				|![data dict 3](/img/data_dict3.png)|</br>
+										![data dict 2](/img/data_dict2.png)</br>
+										![data dict 3](/img/data_dict3.png)</br>
