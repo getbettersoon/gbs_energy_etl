@@ -178,10 +178,25 @@ It also integrates well with other AWS products, like S3. Amazon S3 allowed me t
 7. Create ETL script that will, create all tables, copy from S3 to Redshift, transform data and insert into final tables
 8. Create tests</br></br>
 
-## 4. Run ETL to model the data
-
-### Data dictionary </br> 
+## Data dictionary
 
 ![data dict 1](/img/data_dict1.png)</br>
-<img style="float: center;" src="/img/data_dict2.png">
-<img style="float: center;" src="/img/data_dict3.png">
+![data dict 2](/img/data_dict2.png)</br>
+![data dict 3](/img/data_dict3.png)</br>
+
+## Hypothetical scenarios
+
+### Data was increased x100
+
+In this scenario Amazon Redshift and S3 would do great. S3 scales automatically and offers virtually limitless storage.
+Redshift offers classic and elastic resize options. If required cluster resize was 2x or less, then triggering elastic resize would be a go-to solution, it only take few minutes to complete, however queries are held up for much shorter time - only for the period required for metadata to be transfered from current to joining clusters.</br>
+If required cluster resize was more than 2x, or it required node type change, then classic resize would be chosen. Clusters can take from couple of hours to couple of days for this process to complete, and the time depends on amount of data. However there are ways to minimize the amount of time in which the database can't accept writes i.e. performing snapshot, restors, resize.
+
+### The pipelines would be run on a daily basis by 7 am every day.
+
+Data orchestration tool would be handy in thise situation. For example using Apache Airflow would allow to schedule ETL jobs at specific time, monitor them, re-run failed jobs and send alerts to data engineer if needed.
+
+
+### The database needed to be accessed by 100+ people
+
+That wouldn't be a problem for Redshift, thanks to Concurrency Scaling and it's elastic scaling of the resources. If queries start to get backlogged due to spike in user activity, it automatically adds transient cluster and routes the traffic within seconds. 
