@@ -9,6 +9,7 @@ def clean_energy(config):
     """
      - download dataset from S3, clean and upload to S3
     """
+    
     # read json from S3 and create df
     s3 = boto3.resource('s3')
     obj = s3.Object('gbs-energy', 'owid-energy-data.json')

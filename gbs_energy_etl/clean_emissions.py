@@ -4,6 +4,10 @@ import numpy as np
 
 
 def clean_emissions(config):
+    """
+     - download dataset from S3, clean and upload to S3
+    """
+    
     df = wr.s3.read_csv(f"s3://gbs-energy/CW_HistoricalEmissions_PIK.csv")
 
     # rename column
