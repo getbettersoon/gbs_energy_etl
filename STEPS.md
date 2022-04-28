@@ -70,13 +70,13 @@ Quality checks included:
 	- AverageTemperature in expected range</br>
 	
 - Missing values:
-	- ~32k values are missing in Average Temperature that is about 5.6% of total row count</br></br>
+	- ~32k values are missing in Average Temperature that is about 5.6% of total row count</br>
 
 - Uniqueness constraints:</br>
 	- no duplicate rows</br>
 
 - Other:
-	- some country names did not match ISO 3166, they were corrected</br></br>
+	- some country names did not match ISO 3166, they were corrected</br>
 
 - Units:
 	- figures in Celsius</br></br>
@@ -87,18 +87,18 @@ Quality checks included:
 - Columns:
 	- drop 'source' column</br>
 	- rename 'country' to 'iso_code'
-	- using snake_c</br>
+	- using snake_case</br>
 
 - Type constraints:
 	- almost all columns were imported as 'object', and only few numerical columns were correctly interpreted as 'float64'. Since I expected all numerical columns to be imported as 'float' I investigated further. </br>
 	
-	- What I have found is very few rows had across majority of their columns '#NUM!' value which was causing Pandas to import those columns as 'object'. To fix it I removed these rows.</br>
+	- What I have found is very few rows had across majority of their columns '#NUM!' value which was causing Pandas to import those columns as 'object'. I removed these rows.</br>
 
 - Range constraints:
 	- for every combination of sector and gas, no value is higher than that for the entire world. Also no value is lower than 0.</br>
 
 - Missing values:
-	- as mentioned in 'type constraints' above there were 5 rows, out of 4717 total rows, that had over 150 columns of data missing each, out of 174 total columns. Because all the missing data was concentrated in so few rows, I replaced all the values with np.nan and then removed those rows altogether.</br>
+	- as mentioned in 'type constraints' above, 5 out of 4717 total rows had over 150 columns of data missing. That's over 150 columns missing out of 174 total. Because all missing data was concentrated in so few rows, I replaced all the values with np.nan and then removed those rows altogether.</br>
 	
 - Uniqueness constraints:</br>
 	- no duplicate rows</br>
@@ -125,7 +125,7 @@ Quality checks included:
 	
 - Range constraints:
 	- checked subset of columns per year per gas to see if any max value for rest of the world is higher than value for the whole world</br>
-	- checked if there are any value below 0</br>
+	- checked if there are any values below 0</br>
 
 	
 - Missing values:
@@ -134,8 +134,7 @@ Quality checks included:
 		- energy source was likely not used</br>
 		- the technology did not exist at the time</br>
 		- the data was not reported</br>
-	- there were two Infinite values in a column representing energy consumption change in percent. That was caused by energy production in a previous year being 0 and next year going positive. Both 'inf' values were changed to 'nan'.
-	</br>
+	- there were two Infinite values in a column representing energy consumption change in percent. That was caused by energy production in a previous year being 0 and next year going positive. Both 'inf' values were changed to 'nan'.</br>
 		
 - Uniqueness constraints:
 	- no duplicate rows</br>
@@ -150,8 +149,6 @@ Quality checks included:
 
 ## 3. Define the data model
 
-### Conceptual data model
-
 ### Considering the right data model
 
 At this stage I have considered suitable data model. Its purpose was to provide answers to analytical queries from data analysts. Data itself wasn't expected to change or be added more often than once a year. Therefore it wouldn't be used much to insert, update or delete data; it would be used to handle reads.</br></br> 
@@ -160,9 +157,10 @@ In this case I decided that a suitable model for that task would be a dimensiona
 
 ### Choosing Amazon Redshift and Amazon S3
 
-Redshift is a data warehouse running modified Postgres under the hood and uses SQL to query data. It's great for OLAP workloads, thanks to column-oriented approach it uses. On top of that, massive parallel processing allows it to divide big jobs into smaller ones, distribute it among a cluster of processors and apply them to process a query in a parallel manner.</br></br> 
-Amazon Redshift is also scalable and available in regions all over the world, which is good news for scalability and data governance. It offers vast choice of hardware configuration, suitable for many kinds of applications. It has great web UI, that allows to accomplish many tasks by point-and-click and it also offers AWS CLI where users can securely connect and deploy infrastructure as code, and then manage and monitor it.</br></br> 
-It also integrates well with other AWS products, like S3. Amazon S3 allowed me to easily store my datasets there and then copy into Redshift thanks to their integration. Another consideration for this project was its limited budget. Again, AWS was a great choice here as they offered 30day free trial for Redshift and 5GB free S3 storage.</br></br>
+Redshift is a data warehouse running modified Postgres under the hood and uses SQL to query data. It's suitable for OLAP workloads, thanks to column-oriented approach it uses. On top of that, massive parallel processing allows it to divide big jobs into smaller ones, distribute it among a clusters of processors and apply them to process queries in parallel manner.</br></br> 
+Amazon Redshift is also scalable and available in regions all over the world, which is good news for scalability and data governance. It offers vast choice of hardware configuration, suitable for many kinds of applications. It has intuitive web UI, that allows to accomplish many tasks by point-and-click and it also offers AWS CLI where users can securely connect and deploy infrastructure as code, and then manage and monitor it.</br></br> 
+It also integrates well with other AWS products, like S3.</br></br>
+Amazon S3 allowed me to easily store my datasets there and then copy into Redshift thanks to their integration. Another consideration for this project was its limited budget. Again, AWS was a great choice here as they offered 30day free trial for Redshift and 5GB free S3 storage.</br></br>
 
 ### Steps necessary to pipeline the data into the chosen data model
 
@@ -189,15 +187,15 @@ It also integrates well with other AWS products, like S3. Amazon S3 allowed me t
 
 ### Data was increased x100
 
-In this scenario Amazon Redshift and S3 would do great. S3 scales automatically and offers virtually limitless storage.
-Redshift offers classic and elastic resize options. If required cluster resize was 2x or less, then triggering elastic resize would be a go-to solution, it only take few minutes to complete, however queries are held up for much shorter time - only for the period required for metadata to be transfered from current to joining clusters.</br>
-If required cluster resize was more than 2x, or it required node type change, then classic resize would be chosen. Clusters can take from couple of hours to couple of days for this process to complete, and the time depends on amount of data. However there are ways to minimize the amount of time in which the database can't accept writes i.e. performing snapshot, restors, resize.
+In this scenario Amazon Redshift and S3 would perform well. S3 scales automatically and offers virtually limitless storage.
+Redshift offers classic and elastic resize options. If required cluster resize was 2x or less, then triggering elastic resize would be a go-to solution, it takes few minutes to complete, however queries are held up for much shorter time - only for the period required for metadata to be transfered from current clusters to joining clusters.</br>
+If required cluster resize was more than 2x, or it required node type change, then classic resize would be chosen. Clusters can take from couple of hours to couple of days for this process to complete, and the time depends on amount of data. However there are ways to minimize the amount of time in which the database can't accept writes i.e. performing snapshot, restore, resize.
 
 ### The pipelines would be run on a daily basis by 7 am every day.
 
-Data orchestration tool would be handy in thise situation. For example using Apache Airflow would allow to schedule ETL jobs at specific time, monitor them, re-run failed jobs and send alerts to data engineer if needed.
+Data orchestration tool would be handy in this situation. For example using Apache Airflow would allow to schedule ETL jobs at specific time, monitor them, re-run failed jobs and send alerts to data engineer if needed. Minor modifications to structure of the code would be required to accommodate Airflow, like fragmenting ETL into smaller chunks in seperate modules to allow better task monitoring in DAG.
 
 
 ### The database needed to be accessed by 100+ people
 
-That wouldn't be a problem for Redshift, thanks to Concurrency Scaling and it's elastic scaling of the resources. If queries start to get backlogged due to spike in user activity, it automatically adds transient cluster and routes the traffic within seconds. 
+That wouldn't be a problem for Redshift, thanks to Concurrency Scaling and it's elastic scaling of the resources. If queries start to get backlogged due to spike in user activity, it automatically adds transient clusters and routes the traffic within seconds. 

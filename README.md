@@ -1,6 +1,6 @@
 # Energy ETL
 
-This pipeline takes three datasets from my bucket in Amazon S3:</br>
+This pipeline takes three datasets:</br>
 
 - temperature data</br>
 
@@ -8,7 +8,7 @@ This pipeline takes three datasets from my bucket in Amazon S3:</br>
 
 - greenhouse gas emissions</br>
 
-and transforms them into dimensional model in Amazon Redshift.</br></br>
+transforms them into dimensional model in Amazon Redshift.</br></br>
 
 ## Usage
 
