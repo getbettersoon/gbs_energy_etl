@@ -1,7 +1,3 @@
-def clean_data():
-    pass
-
-
 def execute_tables(cur, conn, queries):
     """
      - drop and create tables

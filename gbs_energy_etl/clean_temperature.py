@@ -31,4 +31,6 @@ def clean_temperature(config):
     if PREFIX:
         PREFIX = f"/{PREFIX}"
 
-    wr.s3.to_csv(df, f"s3://{BUCKET}{PREFIX}/clean_GlobalLandTemperaturesByCountry.csv", index=False)
+    wr.s3.to_csv(df, 
+                 f"s3://{BUCKET}{PREFIX}/"
+                 +"clean_GlobalLandTemperaturesByCountry.csv", index=False)

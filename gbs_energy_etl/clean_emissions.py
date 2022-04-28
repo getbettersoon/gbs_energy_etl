@@ -36,4 +36,6 @@ def clean_emissions(config):
     if PREFIX:
         PREFIX = f"/{PREFIX}"
 
-    wr.s3.to_csv(df, f"s3://{BUCKET}{PREFIX}/clean_CW_HistoricalEmissions_PIK.csv", index=False)
+    wr.s3.to_csv(df, 
+                f"s3://{BUCKET}{PREFIX}/clean_CW_HistoricalEmissions_PIK.csv",
+                index=False)

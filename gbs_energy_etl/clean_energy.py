@@ -32,7 +32,8 @@ def clean_energy(config):
     # get a list of countries
     all_countries = df['country'].tolist()
 
-    # get a list of columns and create empty df. Germany has all possible columns
+    # get a list of columns and create empty df. 
+    # Germany has all possible columns
     df_country = pd.json_normalize(data, ['Germany','data'])
     columns = list(df_country.columns)
     columns.insert(0, 'country')
@@ -84,7 +85,8 @@ def clean_energy(config):
     columns_to_move.remove('gdp')
 
     df_final = pd.melt(df_final,
-                        id_vars=['country', 'iso_code', 'year', 'population', 'gdp'], 
+                        id_vars=['country', 'iso_code', 'year', 'population', 
+                                 'gdp'], 
                         value_vars=list(df_final.columns)[3:], 
                         var_name='energy_metric', 
                         value_name='energy_amount')
@@ -98,4 +100,6 @@ def clean_energy(config):
     if PREFIX:
         PREFIX = f"/{PREFIX}"
 
-    wr.s3.to_json(df_final, f"s3://{BUCKET}{PREFIX}/clean_owid-energy-data.json", orient='records', lines=True)
+    wr.s3.to_json(df_final, 
+                  f"s3://{BUCKET}{PREFIX}/clean_owid-energy-data.json",
+                  orient='records', lines=True)
