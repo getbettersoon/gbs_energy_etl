@@ -12,13 +12,15 @@ and transforms them into dimensional model in Amazon Redshift.</br></br>
 
 ## Usage
 
-- You will need a Redshift cluster. Next use config template `gbs_energy_etl/aws_template.cfg` to add your cluster/AWS details. Do not change the order of fields.</br>
+- You will need a Redshift cluster and S3 bucket.</br> 
+> Your S3 bucket will be used to upload clean datasets and then load them into staging in Redshift. 
+- Next use config template `gbs_energy_etl/aws_template.cfg` to add your AWS IAM, Redshift and S3 details. Do not change the order of fields.
 
-- Either add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.</br></br>
+- Either add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.
 
 - Install dependencies from requirements.txt
 
-- Run `gbs_energy_etl/main_connector.py`</br></br>
+- Run `main_connector.py`</br></br>
 
 ## About source datasets
 

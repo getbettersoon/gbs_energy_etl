@@ -86,6 +86,7 @@ Quality checks included:
 
 - Columns:
 	- drop 'source' column</br>
+	- rename 'country' to 'iso_code'
 	- using snake_c</br>
 
 - Type constraints:

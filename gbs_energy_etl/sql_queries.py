@@ -2,6 +2,10 @@ from gbs_energy_etl.settings import config
 
 
 ROLE_ARN = config.get('IAM_ROLE', 'ROLE_ARN')
+BUCKET = config['S3']['BUCKET']
+PREFIX = config['S3']['PREFIX']
+if PREFIX:
+    PREFIX = f"/{PREFIX}"
 
 
 # DROP TABLES
@@ -196,36 +200,36 @@ SORTKEY (country_id, date_id)
 
 
 # STAGING TABLES COPY
-staging_temp_copy = ("""
+staging_temp_copy = (f"""
     COPY staging_temp
-    FROM 's3://gbs-energy/clean_GlobalLandTemperaturesByCountry.csv'
-    iam_role '{}'
+    FROM 's3://{BUCKET}{PREFIX}/clean_GlobalLandTemperaturesByCountry.csv'
+    iam_role '{ROLE_ARN}'
     CSV
     IGNOREHEADER 1
     DELIMITER ','
     region 'us-west-2'
-    """.format(ROLE_ARN)
+    """
 )
 
-staging_emissions_copy = ("""
+staging_emissions_copy = (f"""
     COPY staging_emissions
-    FROM 's3://gbs-energy/clean_CW_HistoricalEmissions_PIK.csv'
-    iam_role '{}'
+    FROM 's3://{BUCKET}{PREFIX}/clean_CW_HistoricalEmissions_PIK.csv'
+    iam_role '{ROLE_ARN}'
     CSV
     IGNOREHEADER 1
     DELIMITER ','
     region 'us-west-2'
-""".format(ROLE_ARN)
+"""
 )
 
-staging_energy_copy = ("""
+staging_energy_copy = (f"""
     COPY staging_energy
-    FROM 's3://gbs-energy/clean_owid-energy-data.json'
-    iam_role '{}'
+    FROM 's3://{BUCKET}{PREFIX}/clean_owid-energy-data.json'
+    iam_role '{ROLE_ARN}'
     json 'auto'
     compupdate off
     region 'us-west-2'
-""".format(ROLE_ARN)
+"""
 )
 
 
