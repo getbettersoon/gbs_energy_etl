@@ -59,8 +59,6 @@ by year, by country. Data covers time range from 1900 to 2021.</br></br>
 
 ## Other information
 
-#### Tests
-
-Tests require root direcory to be included in PATH</br></br>
+- Tests require project root directory to be included in PATH</br></br>
 
 
