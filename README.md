@@ -57,3 +57,10 @@ Our World In Data is a non-profit organization providing data to tackle variety 
 Final tables show historical temperature, gas emissions as well as energy production and consumption,
 by year, by country. Data covers time range from 1900 to 2021.</br></br>
 
+## Other information
+
+#### Tests
+
+Tests require root direcory to be included in PATH</br></br>
+
+
