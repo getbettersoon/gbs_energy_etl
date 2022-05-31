@@ -13,7 +13,10 @@ transforms them into dimensional model in Amazon Redshift.</br></br>
 ## Usage
 
 - You will need a Redshift cluster and S3 bucket.</br> 
-    > Your S3 bucket will be used to upload clean datasets and then load them into staging in Redshift. 
+    > Your S3 bucket will be used to store source datasets, upload clean datasets and then load them into staging in Redshift. 
+
+- Upload datasets to your S3 bucket.
+    
 - Next use config template `gbs_energy_etl/aws_template.cfg` to add your AWS IAM, Redshift and S3 details. Do not change the order of fields.
 
 - Either add path of your config file to CFG_PATH environment variable or save it as `/gbs_energy_etl/aws.cfg`.
