@@ -5,8 +5,10 @@ def clean_temperature(config):
     """
      - download dataset from S3, clean and upload to S3
     """
-    
-    df = wr.s3.read_csv(f"s3://gbs-energy/GlobalLandTemperaturesByCountry.csv")
+    BUCKET = config['S3']['BUCKET']
+
+    df = wr.s3.read_csv(f"s3://{BUCKET}"
+                        + "/GlobalLandTemperaturesByCountry.csv")
 
     # drop columns
     df = df.drop(labels=['AverageTemperatureUncertainty'], axis=1)
@@ -26,11 +28,7 @@ def clean_temperature(config):
         'Guinea Bissau':'Guinea-Bissau',
         'Palestina': 'Palestine'})
 
-    BUCKET = config['S3']['BUCKET']
-    PREFIX = config['S3']['PREFIX']
-    if PREFIX:
-        PREFIX = f"/{PREFIX}"
 
     wr.s3.to_csv(df, 
-                 f"s3://{BUCKET}{PREFIX}/"
-                 +"clean_GlobalLandTemperaturesByCountry.csv", index=False)
+                 f"s3://{BUCKET}/"
+                 + "clean_GlobalLandTemperaturesByCountry.csv", index=False)

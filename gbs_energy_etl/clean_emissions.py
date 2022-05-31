@@ -7,11 +7,14 @@ def clean_emissions(config):
     """
      - download dataset from S3, clean and upload to S3
     """
-    
-    df = wr.s3.read_csv(f"s3://gbs-energy/CW_HistoricalEmissions_PIK.csv")
+
+    BUCKET = config['S3']['BUCKET']
+
+    df = wr.s3.read_csv(f"s3://{BUCKET}"
+                        + "/CW_HistoricalEmissions_PIK.csv")
 
     # rename column
-    df = df.rename(columns={'country':'iso_code'})
+    df = df.rename(columns={'country': 'iso_code'})
 
     # keep total emissions only, remove individual sectors
     filt_sectors = df['sector'] == 'Total excluding LULUCF'
@@ -29,17 +32,11 @@ def clean_emissions(config):
 
     # convert columns into rows
     all_country_columns = list(map(str, range(1850, 2019)))
-    df = pd.melt(df, id_vars=['iso_code', 'gas'], 
-                    value_vars=all_country_columns, 
-                    var_name='year', 
-                    value_name='emission_amount')
+    df = pd.melt(df, id_vars=['iso_code', 'gas'],
+                value_vars=all_country_columns,
+                var_name='year',
+                value_name='emission_amount')
 
-
-    BUCKET = config['S3']['BUCKET']
-    PREFIX = config['S3']['PREFIX']
-    if PREFIX:
-        PREFIX = f"/{PREFIX}"
-
-    wr.s3.to_csv(df, 
-                f"s3://{BUCKET}{PREFIX}/clean_CW_HistoricalEmissions_PIK.csv",
+    wr.s3.to_csv(df,
+                f"s3://{BUCKET}/clean_CW_HistoricalEmissions_PIK.csv",
                 index=False)

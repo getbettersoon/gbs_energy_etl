@@ -9,10 +9,11 @@ def clean_energy(config):
     """
      - download dataset from S3, clean and upload to S3
     """
-    
+    BUCKET = config['S3']['BUCKET']
+
     # read json from S3 and create df
     s3 = boto3.resource('s3')
-    obj = s3.Object('gbs-energy', 'owid-energy-data.json')
+    obj = s3.Object(f'{BUCKET}', 'owid-energy-data.json')
     file_content = obj.get()['Body'].read().decode('utf-8')
     data = json.loads(file_content)
     df = pd.DataFrame.from_dict(data, orient='index')\
@@ -86,21 +87,17 @@ def clean_energy(config):
     columns_to_move.remove('gdp')
 
     df_final = pd.melt(df_final,
-                        id_vars=['country', 'iso_code', 'year', 'population', 
-                                 'gdp'], 
-                        value_vars=list(df_final.columns)[3:], 
-                        var_name='energy_metric', 
+                        id_vars=['country', 'iso_code', 'year', 'population',
+                                 'gdp'],
+                        value_vars=list(df_final.columns)[3:],
+                        var_name='energy_metric',
                         value_name='energy_amount')
 
     # remove outliers
     df_final = df_final.replace(to_replace={np.inf: np.nan})
     df_final.loc[206304, ['energy_amount']] = np.nan
 
-    BUCKET = config['S3']['BUCKET']
-    PREFIX = config['S3']['PREFIX']
-    if PREFIX:
-        PREFIX = f"/{PREFIX}"
 
     wr.s3.to_json(df_final, 
-                  f"s3://{BUCKET}{PREFIX}/clean_owid-energy-data.json",
+                  f"s3://{BUCKET}/clean_owid-energy-data.json",
                   orient='records', lines=True)

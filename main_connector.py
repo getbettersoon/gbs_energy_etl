@@ -1,7 +1,6 @@
-import logging
 import psycopg2
 from gbs_energy_etl.settings import config
-from gbs_energy_etl.etl import (execute_tables, 
+from gbs_energy_etl.etl import (execute_tables,
                                 load_staging_tables,
                                 insert_final_tables)
 from gbs_energy_etl.sql_queries import (execute_table_queries,
@@ -20,11 +19,10 @@ def main():
      - load from S3 to Redshift staging
      - load final tables in Redshift
     """
-    
+
     clean_temperature(config)
     clean_energy(config)
     clean_emissions(config)
-    
 
     conn = psycopg2.connect('user={} password={} host={}\
                             port={} dbname={}'
